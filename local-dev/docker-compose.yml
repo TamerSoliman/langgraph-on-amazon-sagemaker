@@ -1,0 +1,79 @@
+# Docker Compose Local Development Environment
+#
+# For AI/ML Scientists:
+# - Docker Compose = orchestrate multiple containers together
+# - This setup lets you test the agent locally without AWS
+# - No SageMaker costs, no Lambda deployment needed
+# - Perfect for development and experimentation
+
+version: '3.8'
+
+services:
+  # ===========================================================================
+  # Mock SageMaker Endpoint
+  # ===========================================================================
+  mock-sagemaker:
+    build:
+      context: ./mock-sagemaker
+      dockerfile: Dockerfile
+    container_name: langgraph-mock-sagemaker
+    ports:
+      - "8080:8080"
+    environment:
+      - PORT=8080
+      - MODEL_NAME=mistral-7b-mock
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - langgraph-network
+
+  # ===========================================================================
+  # LangGraph Agent (Local Version)
+  # ===========================================================================
+  agent:
+    build:
+      context: ../agent
+      dockerfile: Dockerfile.local
+    container_name: langgraph-agent
+    ports:
+      - "8000:8000"
+    environment:
+      # Point to mock SageMaker instead of real endpoint
+      - SAGEMAKER_ENDPOINT_URL=http://mock-sagemaker:8080
+      - SAGEMAKER_ENDPOINT_NAME=mock-endpoint
+      - TAVILY_API_KEY=${TAVILY_API_KEY:-demo-key}
+      - AWS_DEFAULT_REGION=us-east-1
+      - LOG_LEVEL=DEBUG
+      # For local dev, skip AWS auth
+      - AWS_ACCESS_KEY_ID=test
+      - AWS_SECRET_ACCESS_KEY=test
+    depends_on:
+      mock-sagemaker:
+        condition: service_healthy
+    networks:
+      - langgraph-network
+    command: uvicorn main:app --host 0.0.0.0 --port 8000 --reload
+
+  # ===========================================================================
+  # Streamlit UI (Optional - for non-technical users)
+  # ===========================================================================
+  ui:
+    build:
+      context: ./streamlit-ui
+      dockerfile: Dockerfile
+    container_name: langgraph-ui
+    ports:
+      - "8501:8501"
+    environment:
+      - AGENT_URL=http://agent:8000
+    depends_on:
+      - agent
+    networks:
+      - langgraph-network
+
+networks:
+  langgraph-network:
+    driver: bridge

@@ -1,0 +1,20 @@
+# Testing Dependencies
+
+# Core testing framework
+pytest==7.4.3
+pytest-cov==4.1.0          # Code coverage
+pytest-mock==3.12.0        # Advanced mocking
+pytest-asyncio==0.21.1     # Async tests (if needed)
+
+# Mocking AWS services
+moto[all]==4.2.9           # Mock boto3 (SageMaker, Secrets Manager, etc.)
+
+# Code quality
+black==23.12.1             # Code formatter
+flake8==6.1.0              # Linter
+mypy==1.7.1                # Type checker
+
+# Test utilities
+freezegun==1.4.0           # Mock datetime
+responses==0.24.1          # Mock HTTP requests
+faker==21.0.0              # Generate test data

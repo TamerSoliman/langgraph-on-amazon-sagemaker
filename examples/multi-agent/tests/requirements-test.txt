@@ -1,0 +1,73 @@
+# Testing Dependencies for Multi-Agent Example
+#
+# For AI/ML Scientists:
+# These are additional packages needed only for testing, not for
+# production deployment. Similar to dev dependencies in other projects.
+
+# Core testing framework
+pytest==7.4.3              # Test runner and framework
+pytest-cov==4.1.0          # Code coverage reports
+pytest-mock==3.12.0        # Advanced mocking utilities
+pytest-asyncio==0.21.1     # For testing async code (if needed)
+
+# For AI/ML Scientists:
+# pytest is the de facto testing framework for Python - like unittest
+# but with better syntax and more features. Think of it as the industry
+# standard for testing ML code.
+
+# Mocking utilities (already includes unittest.mock from stdlib)
+# We use unittest.mock.patch for mocking AWS services and LLM calls
+
+# Code quality tools (optional, but recommended)
+black==23.12.1             # Code formatter
+flake8==6.1.0              # Linter for code quality
+mypy==1.7.1                # Static type checker
+
+# For AI/ML Scientists:
+# black enforces consistent formatting (like autopep8 but opinionated)
+# flake8 catches code smells and potential bugs
+# mypy catches type errors before runtime (especially useful for complex pipelines)
+
+# -----------------------------------------------------------------------------
+# Installation
+# -----------------------------------------------------------------------------
+#
+# From examples/multi-agent/ directory:
+#
+# 1. Install production dependencies:
+#    pip install -r requirements.txt
+#
+# 2. Install test dependencies:
+#    pip install -r tests/requirements-test.txt
+#
+# Or both at once:
+#    pip install -r requirements.txt -r tests/requirements-test.txt
+#
+# -----------------------------------------------------------------------------
+# Running Tests
+# -----------------------------------------------------------------------------
+#
+# All tests:
+#    pytest tests/ -v
+#
+# Specific test file:
+#    pytest tests/test_agents.py -v
+#
+# With coverage report:
+#    pytest tests/ --cov=. --cov-report=html
+#    open htmlcov/index.html
+#
+# Only fast tests (skip slow ones):
+#    pytest tests/ -v -m "not slow"
+#
+# -----------------------------------------------------------------------------
+# Type Checking
+# -----------------------------------------------------------------------------
+#
+# Run mypy to check types:
+#    mypy multi_agent_graph.py agents/ lambda_handler.py
+#
+# For AI/ML Scientists:
+# Type checking catches bugs like passing wrong types to functions.
+# Especially useful when working with complex data structures like
+# MultiAgentState.
