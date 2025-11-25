@@ -1,0 +1,19 @@
+# Human-in-the-Loop Dependencies
+
+# Core LangGraph
+langgraph==0.0.26
+langchain==0.1.0
+langchain-community==0.0.13
+
+# AWS Integration
+boto3==1.34.22
+sagemaker==2.199.0
+
+# Checkpointing (state persistence)
+# For production, use PostgreSQL checkpointer:
+# psycopg2-binary==2.9.9
+# langgraph-checkpoint-postgres==0.0.5
+
+# Utilities
+pydantic==2.5.3
+typing-extensions==4.9.0
