@@ -1,0 +1,16 @@
+# LangChain and LangGraph core
+langchain==0.1.0
+langgraph==0.0.20
+langchain-community==0.0.10
+langchain-core==0.1.10
+
+# AWS SDK
+boto3==1.34.34
+botocore==1.34.34
+
+# Tools
+tavily-python==0.2.0
+
+# Utilities
+pydantic==2.5.3
+requests==2.31.0

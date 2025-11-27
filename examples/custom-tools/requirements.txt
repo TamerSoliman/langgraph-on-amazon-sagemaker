@@ -1,0 +1,90 @@
+# Custom Tools Dependencies
+#
+# For AI/ML Scientists:
+# These packages are needed for the custom tool examples.
+
+# Core LangChain
+langgraph==0.0.26
+langchain==0.1.0
+langchain-community==0.0.13
+
+# AWS Integration
+boto3==1.34.22
+sagemaker==2.199.0
+
+# Database drivers
+psycopg2-binary==2.9.9  # PostgreSQL (binary version, easier to install)
+pymysql==1.1.0          # MySQL
+# sqlite3 is built-in to Python
+
+# API clients
+requests==2.31.0        # For REST API calls
+urllib3==2.1.0          # HTTP library (used by requests)
+
+# Data handling
+pydantic==2.5.3         # Data validation
+
+# Optional: For enhanced database features
+# sqlalchemy==2.0.25    # ORM and query builder (uncomment if needed)
+
+# -----------------------------------------------------------------------------
+# Installation Notes
+# -----------------------------------------------------------------------------
+#
+# Basic install (SQLite only, no external APIs):
+#   pip install -r requirements.txt
+#
+# With PostgreSQL:
+#   pip install -r requirements.txt
+#   # Or if psycopg2-binary fails, try:
+#   # pip install psycopg2  (requires PostgreSQL dev libraries)
+#
+# With MySQL:
+#   pip install -r requirements.txt
+#   # pymysql is already included
+#
+# -----------------------------------------------------------------------------
+# Dependency Sizes
+# -----------------------------------------------------------------------------
+#
+# Approximate installed sizes:
+# - boto3 + sagemaker: ~75MB
+# - langchain + langgraph: ~25MB
+# - psycopg2-binary: ~5MB
+# - pymysql: ~1MB
+# - requests: ~5MB
+# - pydantic: ~5MB
+#
+# Total: ~115MB
+#
+# -----------------------------------------------------------------------------
+# Security Notes
+# -----------------------------------------------------------------------------
+#
+# - psycopg2-binary vs psycopg2:
+#   - binary: Pre-compiled, easier install, slightly larger
+#   - source: Compile from source, smaller, requires dev tools
+#   - Use binary for development, source for production
+#
+# - Always use parameterized queries (all examples do this)
+# - Never pass user input directly to SQL
+# - Validate and sanitize all inputs
+#
+# -----------------------------------------------------------------------------
+# API Keys Required
+# -----------------------------------------------------------------------------
+#
+# For weather API (get_current_weather):
+#   export WEATHER_API_KEY="your-key"
+#   Free tier: https://www.weatherapi.com/
+#
+# For stock API (get_stock_price):
+#   export STOCK_API_KEY="your-key"
+#   Free tier: https://www.alphavantage.co/support/#api-key
+#
+# For database (optional):
+#   export DB_TYPE="sqlite"  # or "postgres" or "mysql"
+#   export DB_HOST="localhost"
+#   export DB_NAME="mydb"
+#   export DB_USER="user"
+#   export DB_PASSWORD="pass"
